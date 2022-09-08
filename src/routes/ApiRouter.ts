@@ -1,6 +1,12 @@
 import express, { Router } from 'express';
 import IRoute from '../interface/IRoute';
 
+// Controllers
+import AuthController from '../controllers/AuthController';
+import UserController from '../controllers/UserController';
+import ListController from '../controllers/ListController';
+import ItemController from '../controllers/ItemController';
+
 class ApiRoutes implements IRoute {
 	public baseDir: string;
 	public router: Router;
@@ -15,104 +21,28 @@ class ApiRoutes implements IRoute {
 	}
 
 	private registerRoutes(): void {
-		// Register all routes to class router
-		this.router.post('/auth/register', (req, res) => {
-			res.json({
-				message: 'register.',
-			});
-		});
+		// Auth routes
+		this.router.post('/auth/register', AuthController.register);
+		this.router.post('/auth/login', AuthController.login);
+		this.router.post('/auth/logout', AuthController.logout);
 
-		this.router.post('/auth/login', (req, res) => {
-			res.json({
-				message: 'login.',
-			});
-		});
+		// User routes
+		this.router.patch('/user/:id', UserController.update);
+		this.router.delete('/user/:id', UserController.delete);
 
-		this.router.post('/auth/logout', (req, res) => {
-			res.json({
-				message: 'logout.',
-			});
-		});
+		// List routes
+		this.router.get('/list', ListController.index);
+		this.router.get('/list/:id', ListController.show);
+		this.router.post('/list', ListController.create);
+		this.router.patch('/list/:id', ListController.update);
+		this.router.delete('/list/:id', ListController.destroy);
 
-		this.router.patch('/user/:id', (req, res) => {
-			res.json({
-				id: req.params.id,
-				message: 'update user.',
-			});
-		});
-
-		this.router.delete('/user/:id', (req, res) => {
-			res.json({
-				id: req.params.id,
-				message: 'delete user.',
-			});
-		});
-
-		this.router.get('/list', (req, res) => {
-			res.json({
-				message: 'get lists.',
-			});
-		});
-
-		this.router.get('/list/:id', (req, res) => {
-			res.json({
-				id: req.params.id,
-				message: 'get list.',
-			});
-		});
-
-		this.router.post('/list', (req, res) => {
-			res.json({
-				message: 'create list.',
-			});
-		});
-
-		this.router.patch('/list/:id', (req, res) => {
-			res.json({
-				id: req.params.id,
-				message: 'update list.',
-			});
-		});
-
-		this.router.delete('/list/:id', (req, res) => {
-			res.json({
-				id: req.params.id,
-				message: 'delete list.',
-			});
-		});
-
-		this.router.get('/item', (req, res) => {
-			res.json({
-				message: 'get items.',
-			});
-		});
-
-		this.router.get('/item/:id', (req, res) => {
-			res.json({
-				id: req.params.id,
-				message: 'get item.',
-			});
-		});
-
-		this.router.post('/item', (req, res) => {
-			res.json({
-				message: 'create item.',
-			});
-		});
-
-		this.router.patch('/item/:id', (req, res) => {
-			res.json({
-				id: req.params.id,
-				message: 'update item.',
-			});
-		});
-
-		this.router.delete('/item/:id', (req, res) => {
-			res.json({
-				id: req.params.id,
-				message: 'delete item.',
-			});
-		});
+		// Item routes
+		this.router.get('/item', ItemController.index);
+		this.router.get('/item/:id', ItemController.show);
+		this.router.post('/item', ItemController.create);
+		this.router.patch('/item/:id', ItemController.update);
+		this.router.delete('/item/:id', ItemController.destroy);
 	}
 }
 
