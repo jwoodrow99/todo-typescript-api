@@ -2,6 +2,10 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import address from 'address';
 
+// Import routers
+import WebRouter from './routes/WebRouter';
+import ApiRouter from './routes/ApiRouter';
+
 // Import config files
 import expressConfig from './config/express';
 import corsConfig from './config/cors';
@@ -25,12 +29,8 @@ class Server {
 	}
 
 	private registerRoutes(): void {
-		this.server.get('/', (request, response) => {
-			response.json({
-				request: request.body,
-				message: 'Hello World!',
-			});
-		});
+		this.server.use(WebRouter.baseDir, WebRouter.router);
+		this.server.use(ApiRouter.baseDir, ApiRouter.router);
 	}
 
 	public boot(postBoot?: Function): void {
