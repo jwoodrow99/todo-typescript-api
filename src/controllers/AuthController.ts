@@ -29,7 +29,7 @@ class AuthController {
 	}
 
 	static async login(req: Request, res: Response) {
-		let checkUser = await User.where('email', req.body.email);
+		let checkUser = await User.query().where('email', req.body.email);
 
 		// Check that password matched stored hash
 		if (bcrypt.compareSync(req.body.password, checkUser[0].password)) {
