@@ -1,5 +1,7 @@
 # Todo Typescript API
 
+This project is designed to explore the basics of a MVC api written in typescript.
+
 You can view the project documentation [here](https://docs.google.com/document/d/1cvGFK8QNIxSUHFzflp76LByfVuaph3LAFtEzcf_79Is/edit?usp=sharing)
 
 ## Start Application
