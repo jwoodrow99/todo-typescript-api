@@ -5,10 +5,10 @@ import User from '../models/UserModel';
 
 class AuthController {
 	static async register(req: Request, res: Response) {
-		let checkUser = await User.where('email', req.body.email);
+		let checkUser = await User.query().where('email', req.body.email);
 
 		if (checkUser.length == 0) {
-			await User.insert({
+			await User.query().insert({
 				name: req.body.name,
 				email: req.body.email,
 				password: bcrypt.hashSync(req.body.password, 10),
