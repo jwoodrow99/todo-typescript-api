@@ -1,2 +1,7 @@
 import database from '../service/database';
-export default database('users');
+
+const query: any = (): any => {
+	return database('users');
+};
+
+export default { query };
