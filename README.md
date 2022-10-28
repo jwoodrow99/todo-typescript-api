@@ -17,6 +17,9 @@ cp .env.example .env
 # Generate app key and add to env
 require('crypto').randomBytes(64).toString('hex');
 
+# Migrate Database
+npm run migrate
+
 # Start Application
 npm run dev
 ```
