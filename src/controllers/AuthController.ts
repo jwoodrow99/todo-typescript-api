@@ -29,11 +29,33 @@ class AuthController {
 	}
 
 	static async login(req: Request, res: Response) {
-		res
-			.json({
-				message: 'login.',
-			})
-			.status(200);
+		let checkUser = await User.where('email', req.body.email);
+
+		// Check that password matched stored hash
+		if (bcrypt.compareSync(req.body.password, checkUser[0].password)) {
+			// Create JWT
+			let userJWT = jwt.sign(
+				{
+					id: checkUser[0].id,
+					name: checkUser[0].name,
+					email: checkUser[0].email,
+				},
+				process.env.TOKEN || ''
+			);
+
+			res
+				.json({
+					message: 'Authenticated.',
+					jwt: userJWT,
+				})
+				.status(200);
+		} else {
+			res
+				.json({
+					message: 'Unauthenticated.',
+				})
+				.status(401);
+		}
 	}
 
 	static async logout(req: Request, res: Response) {
