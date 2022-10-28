@@ -1,23 +1,54 @@
 import { Request, Response } from 'express';
 import IRequest from '../interface/IRequest';
+import UserModel from '../models/UserModel';
 
 class UserController {
 	static async update(req: IRequest, res: Response) {
-		res
-			.json({
-				id: req.params.id,
-				message: 'update user.',
-			})
-			.status(200);
+		if (req.params.id == req.user.id) {
+			await UserModel.query().where('id', req.params.id).update({
+				name: req.body.name,
+				email: req.body.email,
+			});
+
+			let updatedUser = await UserModel.query()
+				.where('id', req.params.id)
+				.first();
+
+			res
+				.json({
+					user: {
+						id: updatedUser.id,
+						name: updatedUser.name,
+						email: updatedUser.email,
+					},
+					message: 'update user.',
+				})
+				.status(200);
+		} else {
+			res
+				.json({
+					id: req.params.id,
+					message: 'This user cannot be updated',
+				})
+				.status(401);
+		}
 	}
 
 	static async delete(req: IRequest, res: Response) {
-		res
-			.json({
-				id: req.params.id,
-				message: 'delete user.',
-			})
-			.status(200);
+		if (req.params.id == req.user.id) {
+			await UserModel.query().where('id', req.params.id).del();
+			res
+				.json({
+					message: 'delete user.',
+				})
+				.status(200);
+		} else {
+			res
+				.json({
+					message: 'User cannot be deleted.',
+				})
+				.status(200);
+		}
 	}
 }
 
