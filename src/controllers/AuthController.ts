@@ -5,11 +5,11 @@ import User from '../models/UserModel';
 import IRequest from '../interface/IRequest';
 
 class AuthController {
-	static async register(req: IRequest, res: Response) {
-		let checkUser = await User.where('email', req.body.email);
+	static async register(req: Request, res: Response) {
+		let checkUser = await User.query().where('email', req.body.email);
 
 		if (checkUser.length == 0) {
-			await User.insert({
+			await User.query().insert({
 				name: req.body.name,
 				email: req.body.email,
 				password: bcrypt.hashSync(req.body.password, 10),
@@ -29,8 +29,8 @@ class AuthController {
 		}
 	}
 
-	static async login(req: IRequest, res: Response) {
-		let checkUser = await User.where('email', req.body.email);
+	static async login(req: Request, res: Response) {
+		let checkUser = await User.query().where('email', req.body.email);
 
 		// Check that password matched stored hash
 		if (bcrypt.compareSync(req.body.password, checkUser[0].password)) {
