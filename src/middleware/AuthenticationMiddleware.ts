@@ -7,11 +7,27 @@ const AuthenticationMiddleware = (
 	res: Response,
 	next: NextFunction
 ) => {
-	req.user = jwt.verify(
-		req.header('authorization')?.split(' ')[1] || '',
-		process.env.TOKEN || ''
-	);
-	next();
+	if (req.header('authorization')) {
+		try {
+			req.user = jwt.verify(
+				req.header('authorization')?.split(' ')[1] || '',
+				process.env.TOKEN || ''
+			);
+			next();
+		} catch (err) {
+			res
+				.json({
+					message: 'Unauthenticated.',
+				})
+				.status(401);
+		}
+	} else {
+		res
+			.json({
+				message: 'Unauthenticated.',
+			})
+			.status(401);
+	}
 };
 
 export default AuthenticationMiddleware;

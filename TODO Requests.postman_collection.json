@@ -354,6 +354,21 @@
 				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "johndoe@example.test",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
 					"raw": "{{uri}}/api/auth/login",
 					"host": [
