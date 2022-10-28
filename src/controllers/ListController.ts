@@ -16,7 +16,7 @@ class ListController {
 	static async show(req: IRequest, res: Response) {
 		let list = await ListModel.query()
 			.where('user_id', req.user.id)
-			.andWhere('id', req.params.id)
+			.andWhere('id', req.params.list_id)
 			.first();
 		res
 			.json({
@@ -43,7 +43,7 @@ class ListController {
 
 	static async update(req: IRequest, res: Response) {
 		await ListModel.query()
-			.where('id', req.params.id)
+			.where('id', req.params.list_id)
 			.andWhere('user_id', req.user.id)
 			.update({
 				title: req.body.title,
@@ -53,7 +53,7 @@ class ListController {
 		res
 			.json({
 				list: await ListModel.query()
-					.where('id', req.params.id)
+					.where('id', req.params.list_id)
 					.andWhere('user_id', req.user.id)
 					.first(),
 				message: 'update list.',
@@ -63,7 +63,7 @@ class ListController {
 
 	static async destroy(req: IRequest, res: Response) {
 		await ListModel.query()
-			.where('id', req.params.id)
+			.where('id', req.params.list_id)
 			.andWhere('user_id', req.user.id)
 			.del();
 

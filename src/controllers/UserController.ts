@@ -4,14 +4,14 @@ import UserModel from '../models/UserModel';
 
 class UserController {
 	static async update(req: IRequest, res: Response) {
-		if (req.params.id == req.user.id) {
-			await UserModel.query().where('id', req.params.id).update({
+		if (req.params.user_id == req.user.id) {
+			await UserModel.query().where('id', req.params.user_id).update({
 				name: req.body.name,
 				email: req.body.email,
 			});
 
 			let updatedUser = await UserModel.query()
-				.where('id', req.params.id)
+				.where('id', req.params.user_id)
 				.first();
 
 			res
@@ -27,7 +27,7 @@ class UserController {
 		} else {
 			res
 				.json({
-					id: req.params.id,
+					id: req.params.user_id,
 					message: 'This user cannot be updated',
 				})
 				.status(401);
@@ -35,8 +35,8 @@ class UserController {
 	}
 
 	static async delete(req: IRequest, res: Response) {
-		if (req.params.id == req.user.id) {
-			await UserModel.query().where('id', req.params.id).del();
+		if (req.params.user_id == req.user.id) {
+			await UserModel.query().where('id', req.params.user_id).del();
 			res
 				.json({
 					message: 'delete user.',

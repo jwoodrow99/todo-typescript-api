@@ -31,42 +31,58 @@ class ApiRoutes implements IRoute {
 
 		// User routes
 		this.router.patch(
-			'/user/:id',
+			'/user/:user_id',
 			AuthenticationMiddleware,
 			UserController.update
 		);
 		this.router.delete(
-			'/user/:id',
+			'/user/:user_id',
 			AuthenticationMiddleware,
 			UserController.delete
 		);
 
 		// List routes
 		this.router.get('/list', AuthenticationMiddleware, ListController.index);
-		this.router.get('/list/:id', AuthenticationMiddleware, ListController.show);
+		this.router.get(
+			'/list/:list_id',
+			AuthenticationMiddleware,
+			ListController.show
+		);
 		this.router.post('/list', AuthenticationMiddleware, ListController.create);
 		this.router.patch(
-			'/list/:id',
+			'/list/:list_id',
 			AuthenticationMiddleware,
 			ListController.update
 		);
 		this.router.delete(
-			'/list/:id',
+			'/list/:list_id',
 			AuthenticationMiddleware,
 			ListController.destroy
 		);
 
 		// Item routes
-		this.router.get('/item', AuthenticationMiddleware, ItemController.index);
-		this.router.get('/item/:id', AuthenticationMiddleware, ItemController.show);
-		this.router.post('/item', AuthenticationMiddleware, ItemController.create);
+		this.router.get(
+			'/list/:list_id/item',
+			AuthenticationMiddleware,
+			ItemController.index
+		);
+		this.router.get(
+			'/list/:list_id/item/:item_id',
+			AuthenticationMiddleware,
+			ItemController.show
+		);
+		this.router.post(
+			'/list/:list_id/item',
+			AuthenticationMiddleware,
+			ItemController.create
+		);
 		this.router.patch(
-			'/item/:id',
+			'/list/:list_id/item/:item_id',
 			AuthenticationMiddleware,
 			ItemController.update
 		);
 		this.router.delete(
-			'/item/:id',
+			'/list/:list_id/item/:item_id',
 			AuthenticationMiddleware,
 			ItemController.destroy
 		);

@@ -14,6 +14,21 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "John Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "johndoe@example.test",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{uri}}/api/user/:id",
 							"host": [
@@ -27,7 +42,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": null
+									"value": "1"
 								}
 							]
 						}
@@ -52,7 +67,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": null
+									"value": "1"
 								}
 							]
 						}
@@ -100,7 +115,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": null
+									"value": "1"
 								}
 							]
 						}
@@ -112,6 +127,21 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "List 1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "This is the first list.",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{uri}}/api/list",
 							"host": [
@@ -130,6 +160,21 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "List 1 update",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "This is the first list updated.",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{uri}}/api/list/:id",
 							"host": [
@@ -143,7 +188,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": null
+									"value": "7"
 								}
 							]
 						}
@@ -168,7 +213,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": null
+									"value": "1"
 								}
 							]
 						}
@@ -186,13 +231,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{uri}}/api/item",
+							"raw": "{{uri}}/api/list/:list_id/item",
 							"host": [
 								"{{uri}}"
 							],
 							"path": [
 								"api",
+								"list",
+								":list_id",
 								"item"
+							],
+							"variable": [
+								{
+									"key": "list_id",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -204,19 +257,25 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{uri}}/api/item/:id",
+							"raw": "{{uri}}/api/list/:list_id/item/:item_id",
 							"host": [
 								"{{uri}}"
 							],
 							"path": [
 								"api",
+								"list",
+								":list_id",
 								"item",
-								":id"
+								":item_id"
 							],
 							"variable": [
 								{
-									"key": "id",
-									"value": null
+									"key": "list_id",
+									"value": "1"
+								},
+								{
+									"key": "item_id",
+									"value": "1"
 								}
 							]
 						}
@@ -228,14 +287,32 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "title1",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "{{uri}}/api/item",
+							"raw": "{{uri}}/api/list/:list_id/item",
 							"host": [
 								"{{uri}}"
 							],
 							"path": [
 								"api",
+								"list",
+								":list_id",
 								"item"
+							],
+							"variable": [
+								{
+									"key": "list_id",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -246,20 +323,41 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "New Title",
+									"type": "text"
+								},
+								{
+									"key": "done",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "{{uri}}/api/item/:id",
+							"raw": "{{uri}}/api/list/:list_id/item/:item_id",
 							"host": [
 								"{{uri}}"
 							],
 							"path": [
 								"api",
+								"list",
+								":list_id",
 								"item",
-								":id"
+								":item_id"
 							],
 							"variable": [
 								{
-									"key": "id",
-									"value": null
+									"key": "list_id",
+									"value": "1"
+								},
+								{
+									"key": "item_id",
+									"value": "1"
 								}
 							]
 						}
@@ -272,19 +370,25 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{uri}}/api/item/:id",
+							"raw": "{{uri}}/api/list/:list_id/item/:item_id",
 							"host": [
 								"{{uri}}"
 							],
 							"path": [
 								"api",
+								"list",
+								":list_id",
 								"item",
-								":id"
+								":item_id"
 							],
 							"variable": [
 								{
-									"key": "id",
-									"value": null
+									"key": "list_id",
+									"value": "1"
+								},
+								{
+									"key": "item_id",
+									"value": "1"
 								}
 							]
 						}
