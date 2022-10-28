@@ -1,2 +1,7 @@
 import database from '../service/database';
-export default database('lists');
+
+const query: any = (): any => {
+	return database('lists');
+};
+
+export default { query };
