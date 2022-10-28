@@ -2,9 +2,10 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/UserModel';
+import IRequest from '../interface/IRequest';
 
 class AuthController {
-	static async register(req: Request, res: Response) {
+	static async register(req: IRequest, res: Response) {
 		let checkUser = await User.where('email', req.body.email);
 
 		if (checkUser.length == 0) {
@@ -28,7 +29,7 @@ class AuthController {
 		}
 	}
 
-	static async login(req: Request, res: Response) {
+	static async login(req: IRequest, res: Response) {
 		let checkUser = await User.where('email', req.body.email);
 
 		// Check that password matched stored hash
@@ -46,7 +47,7 @@ class AuthController {
 			res
 				.json({
 					message: 'Authenticated.',
-					jwt: userJWT,
+					access_token: userJWT,
 				})
 				.status(200);
 		} else {
@@ -58,7 +59,7 @@ class AuthController {
 		}
 	}
 
-	static async logout(req: Request, res: Response) {
+	static async logout(req: IRequest, res: Response) {
 		res
 			.json({
 				message: 'logout.',

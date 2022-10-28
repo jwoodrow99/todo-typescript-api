@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
+import IRequest from '../interface/IRequest';
 
 class ItemController {
-	static async index(req: Request, res: Response) {
+	static async index(req: IRequest, res: Response) {
 		res
 			.json({
 				message: 'get items.',
@@ -9,7 +10,7 @@ class ItemController {
 			.status(200);
 	}
 
-	static async show(req: Request, res: Response) {
+	static async show(req: IRequest, res: Response) {
 		res
 			.json({
 				id: req.params.id,
@@ -18,7 +19,7 @@ class ItemController {
 			.status(200);
 	}
 
-	static async create(req: Request, res: Response) {
+	static async create(req: IRequest, res: Response) {
 		res
 			.json({
 				message: 'create item.',
@@ -26,7 +27,7 @@ class ItemController {
 			.status(200);
 	}
 
-	static async update(req: Request, res: Response) {
+	static async update(req: IRequest, res: Response) {
 		res
 			.json({
 				id: req.params.id,
@@ -35,7 +36,7 @@ class ItemController {
 			.status(200);
 	}
 
-	static async destroy(req: Request, res: Response) {
+	static async destroy(req: IRequest, res: Response) {
 		res
 			.json({
 				id: req.params.id,
